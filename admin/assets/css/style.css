@@ -1,0 +1,154 @@
+/* -------------------- General Body -------------------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa; /* softer background */
+    box-sizing: border-box;
+}
+
+/* -------------------- Header -------------------- */
+.header {
+    background: #2c3e50; /* soft navy blue */
+    color: #ecf0f1; /* light gray */
+    padding: 0px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* -------------------- Main Container -------------------- */
+.main-container {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 60px; /* height of header */
+}
+
+/* -------------------- Sidebar -------------------- */
+.sidebar {
+    width: 250px;
+    background: #34495e; /* softer dark blue-gray */
+    color: #ecf0f1;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #2c3e50;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sidebar ul li a:hover {
+    background: #3d566e; /* hover color */
+}
+
+/* Submenu */
+.submenu {
+    display: none;
+    background: #2c3e50;
+}
+
+.submenu li a {
+    padding: 10px 40px;
+    font-size: 14px;
+    color: #dcdde1;
+}
+
+.submenu li a:hover {
+    background: #4b6584;
+}
+
+/* -------------------- Content -------------------- */
+.content {
+    flex: 1;
+    margin-left: 250px; /* sidebar width */
+    padding: 20px;
+    background: #ffffff;
+    min-height: calc(100vh - 60px); /* adjust for header */
+}
+
+/* -------------------- Footer -------------------- */
+.footer {
+    background: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 10px;
+    clear: both;
+}
+
+/* -------------------- Form Styling -------------------- */
+.content form {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    max-width: 950px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content form input,
+.content form button,
+.content form textarea,
+.content form select {
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.content form button {
+    background: #2980b9; /* soft blue button */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 4px;
+}
+
+.content form button:hover {
+    background: #3498db;
+}
+
+/* -------------------- Headings inside content -------------------- */
+.content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* -------------------- Responsive -------------------- */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .content {
+        margin-left: 200px;
+    }
+}

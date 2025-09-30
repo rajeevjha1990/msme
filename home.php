@@ -1,7 +1,7 @@
-<?php 
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-} 
+}
 include 'dbconfigf/dbconst2025.php'; // DB connection
 
 // Fetch 5 mentors from users table where type = 'TM'
@@ -23,7 +23,7 @@ $influencer_query = "
     GROUP BY u.referenceid, u.name,  u.category, u.photo
     HAVING reference_count > 0
     ORDER BY reference_count DESC
-    
+
 ";
 
 $influencer_result = mysqli_query($conn, $influencer_query);
@@ -47,10 +47,10 @@ $influencer_result = mysqli_query($conn, $influencer_query);
     <title>Scroll Animations Demo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; 
-          
+        body { font-family: 'Segoe UI', sans-serif;
+
           background: #fff; color: #222; line-height: 1.6;
-        
+
          overflow-x: hidden;
         }
 
@@ -245,7 +245,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
           font-weight: bold;
         }
 
-   
+
 
           .hidden-influencer {
     display: none;
@@ -610,7 +610,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
           font-weight: 300;
           color: white;
           text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-          margin-top: -10px; 
+          margin-top: -10px;
           margin-left: -110px;
           line-height: 1;
           text-align: center;
@@ -732,21 +732,21 @@ $influencer_result = mysqli_query($conn, $influencer_query);
           }
           .msme-text { font-size: 2.5rem; }
           .global-text { font-size: 1.6rem; }
-          
-          .info-box { 
-            position: relative; 
+
+          .info-box {
+            position: relative;
             margin: 20px auto;
             max-width: 90%;
             transform: none !important;
             opacity: 1 !important;
             transition: none !important;
           }
-          
+
           .goals-box, .who-should-join-box, .usp-box {
             position: static;
             margin-top: 400px;
           }
-          
+
           .msme-hero-section { height: auto; min-height: 100vh; }
         }
 
@@ -754,12 +754,12 @@ $influencer_result = mysqli_query($conn, $influencer_query);
           .pillars-mentors-content {
             flex-direction: column;
           }
-          
+
           .video-column {
             flex: none;
             width: 100%;
           }
-          
+
           .pillars-mentors-title {
             font-size: 2rem;
           }
@@ -1157,12 +1157,12 @@ $influencer_result = mysqli_query($conn, $influencer_query);
     font-size: 14px;
     min-width: 140px;
   }
-  
+
   .see-more-container {
     margin: 20px 0;
     padding: 15px;
   }
-  
+
   .influencer-grid.show-more {
     max-height: 400px;
     padding: 15px;
@@ -1268,13 +1268,13 @@ $influencer_result = mysqli_query($conn, $influencer_query);
  <h2 style="text-align: center;">Influencers</h2>
 <div class="influencer-grid">
   <?php if ($influencer_result && mysqli_num_rows($influencer_result) > 0) { ?>
-    <?php 
+    <?php
       $count = 0;
-      while ($row = mysqli_fetch_assoc($influencer_result)) { 
+      while ($row = mysqli_fetch_assoc($influencer_result)) {
         $count++;
     ?>
       <div class="influencer-card <?php echo $count > 4 ? 'hidden-influencer' : ''; ?>">
-        <img src="<?php echo htmlspecialchars($row['photo']); ?>" 
+        <img src="<?php echo htmlspecialchars($row['photo']); ?>"
              alt="<?php echo htmlspecialchars($row['name']); ?>">
         <div class="influencer-info">
           <p><strong>Name:</strong> <?php echo htmlspecialchars($row['name']); ?></p>
@@ -1296,22 +1296,22 @@ $influencer_result = mysqli_query($conn, $influencer_query);
   <!-- Pillars & Mentors -->
 <div class="pillars-mentors-container">
         <h2 class="pillars-mentors-title">Pillars And Mentors</h2>
-        
+
     <div class="pillars-mentors-content">
     <div class="mentors-column">
-        <?php 
+        <?php
         if (!empty($mentors)) {
             foreach ($mentors as $mentor) {
                 $mentor_name = htmlspecialchars($mentor['name'] ?? 'Name not available');
                 $category = htmlspecialchars($mentor['category'] ?? 'Category not specified');
                 $description = htmlspecialchars($mentor['description'] ?? 'No description available.');
-                
+
                 // Fetch photo URL from the photo column
                 $photo_url = htmlspecialchars($mentor['photo'] ?? '');
                 ?>
                 <div class="mentor-dropdown" onclick="toggleDropdown(this)">
                     <div class="mentor-header">
-                        <div class="mentor-avatar" 
+                        <div class="mentor-avatar"
                              <?php if (!empty($photo_url)): ?>
                              style="background-image: url('<?php echo $photo_url; ?>');"
                              <?php endif; ?>
@@ -1335,9 +1335,9 @@ $influencer_result = mysqli_query($conn, $influencer_query);
             <div class="video-column">
                 <div class="video-container" id="videoContainer">
                     <!-- Replace 'dQw4w9WgXcQ' with your desired YouTube video ID -->
-                    <iframe 
+                    <iframe
                         src="https://www.youtube.com/embed/LrrO_yUakPw?si=zTY0KvZewNger2zb"
-                        allow="autoplay; encrypted-media" 
+                        allow="autoplay; encrypted-media"
                         allowfullscreen>
                     </iframe>
                 </div>
@@ -1383,7 +1383,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
         function handleScroll() {
             const videoContainer = document.getElementById('videoContainer');
             const iframe = document.getElementById('pillarsVideo');
-            
+
             if (isElementInViewport(videoContainer)) {
                 // Video is in viewport, play it
                 iframe.src = iframe.src.replace('mute=0', 'mute=0&autoplay=1');
@@ -1406,7 +1406,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
  <section class="about-us-section">
         <div class="about-us-container">
             <div class="about-us-header">About Us</div>
-            
+
             <div class="about-us-box">
                 <div class="about-us-description">
                     MSME Global is a city-based business directory platform designed exclusively for entrepreneurs, business owners, and service providers who form the backbone of India's economy - the MSME sector. We aim to build a unified, swadeshi business network that promotes local businesses, enhances visibility, and unlocks opportunities for collaboration, referrals and growth through digital presence and offline engagement.
@@ -1419,9 +1419,9 @@ $influencer_result = mysqli_query($conn, $influencer_query);
                             To become India's most trusted MSME business directory fostering local global reach for small and medium enterprises by enabling them to build strong connections, share success stories and generate quality leads through verified connections.
                         </p>
                     </div>
-                    
+
                     <div class="divider"></div>
-                    
+
                     <div class="mission-box">
                         <h3 class="mission-title">Our Mission</h3>
                         <p class="mission-content">
@@ -1436,7 +1436,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
      <section class="msme-hero-section">
         <!-- Your Complete Background Image with circles, branches, stars, buildings -->
         <div class="background-image background-fallback"></div>
-        
+
         <!-- Dynamic Text Content Overlay -->
         <div class="content-overlay">
             <!-- MSME GLOBAL Text - Positioned over the circular ring in your background -->
@@ -1444,7 +1444,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
                 <div class="msme-text">MSME </div>
                 <div class="global-text">GLOBAL</div>
             </div>
-            
+
             <!-- Dynamic Info Boxes - Positioned over branch endpoints in your background -->
             <div class="info-boxes">
                 <div class="info-box goals-box">
@@ -1457,7 +1457,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
                         <li>Organize offline business meets, testimonials, and workshops for community building</li>
                     </ul>
                 </div>
-                
+
                 <div class="info-box who-should-join-box">
                     <h3>Who Should Join</h3>
                     <ul>
@@ -1466,7 +1466,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
                         <li>MSMEs who believe in sustained networking, real connections and digital branding</li>
                     </ul>
                 </div>
-                
+
                 <div class="info-box usp-box">
                     <h3>Our USP (Unique Selling Proposition)</h3>
                     <ul>
@@ -1480,7 +1480,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
             </div>
         </div>
     </section>
-    
+
 
   <!-- Benefits -->
 <section style="background: linear-gradient(180deg, rgba(246, 142, 57, 0.9) 0%, rgba(115, 115, 115, 0.9) 100%);; color: #070B16;
@@ -1498,8 +1498,8 @@ $influencer_result = mysqli_query($conn, $influencer_query);
     <div style="max-width: 800px; margin: 30px auto 5px auto; padding: 30px; border-radius: 15px; background: rgba(255, 255, 255, 0.1);">
     <h2>Our Philosophy</h2>
     <p>
-      We believe that Bharat’s business future lies in its roots — the MSMEs that drive real growth. 
-      <br>MSME GLOBAL is not just a listing platform; it’s a community of achievers, collaborators, 
+      We believe that Bharat’s business future lies in its roots — the MSMEs that drive real growth.
+      <br>MSME GLOBAL is not just a listing platform; it’s a community of achievers, collaborators,
       <br>and visionaries who believe in growing together.
     </p>
   </div>
@@ -1528,7 +1528,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
     </div>
   </div>
 
-  
+
 
   <div class="testimonial-container testimonial-right">
     <div class="testimonial-card testimonial-sweta">
@@ -1549,7 +1549,6 @@ $influencer_result = mysqli_query($conn, $influencer_query);
 <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-btn" title="Chat with us on WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
-
  <script>
         // Intersection Observer for scroll animations
         const observerOptions = {
@@ -1600,12 +1599,12 @@ $influencer_result = mysqli_query($conn, $influencer_query);
                 if (entry.isIntersecting) {
                     const msmeText = entry.target.querySelector('.msme-text');
                     const globalText = entry.target.querySelector('.global-text');
-                    
+
                     // Animate MSME first
                     if (msmeText) {
                         msmeText.classList.add('animate');
                     }
-                    
+
                     // Animate GLOBAL after MSME with delay
                     if (globalText) {
                         setTimeout(() => {
@@ -1616,7 +1615,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
                     // Remove animations when out of view
                     const msmeText = entry.target.querySelector('.msme-text');
                     const globalText = entry.target.querySelector('.global-text');
-                    
+
                     if (msmeText) msmeText.classList.remove('animate');
                     if (globalText) globalText.classList.remove('animate');
                 }
@@ -1670,7 +1669,7 @@ $influencer_result = mysqli_query($conn, $influencer_query);
     }
 
 
-    
+
   </script>
 
 
@@ -1685,42 +1684,42 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!isExpanded) {
       // Show more influencers
       influencerGrid.classList.add('show-more');
-      
+
       // Change button to "See Less"
       toggleBtn.textContent = 'See Less';
       toggleBtn.className = 'toggle-btn see-less';
-      
+
       // Smooth scroll to the expanded section
       setTimeout(() => {
-        toggleBtn.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
+        toggleBtn.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
         });
       }, 100);
-      
+
       isExpanded = true;
     } else {
       // Hide extra influencers
       influencerGrid.classList.remove('show-more');
-      
+
       // Change button back to "See More"
       toggleBtn.textContent = 'See More';
       toggleBtn.className = 'toggle-btn see-more';
-      
+
       // Scroll back to the top of influencers section
       setTimeout(() => {
-        influencerGrid.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
+        influencerGrid.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
       }, 100);
-      
+
       isExpanded = false;
     }
   });
 });
 
-  
+
 </script>
 
 <!-- Footer -->
