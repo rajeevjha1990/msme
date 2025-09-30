@@ -7,7 +7,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 // user session data
 $user_name = $_SESSION['name'];
-$user_type = isset($_SESSION['type']) ? $_SESSION['type'] : ''; 
+$user_type = isset($_SESSION['type']) ? $_SESSION['type'] : '';
 ?>
 <?php include 'common/header.php'; ?>
 
@@ -124,7 +124,7 @@ body {
             <div class="card-title">Gallery</div>
         </a>
         <?php endif; ?>
-        <a href="change-password.php" class="card">
+        <a href="change_password.php" class="card">
             <div class="card-icon">🔑</div>
             <div class="card-title">Change Password</div>
         </a>

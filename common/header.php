@@ -1,132 +1,28 @@
 <style>
-    /* Header Specific CSS - Prefixed with .msme-header to avoid conflicts */
-    .msme-header * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-    }
-    
-    .msme-header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      background: rgba(11, 11, 59, 0.6);
-      padding: 10px 30px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      font-family: 'Segoe UI', sans-serif;
-    }
-    
-    .msme-header .header-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    
-    .msme-header .header-logo {
-      font-size: 24px;
-      color: #ff6600;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    
-    .msme-header .header-nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .msme-header .header-nav ul li {
-      font-size: 16px;
-    }
-    
-    .msme-header .header-nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: inherit;
-      transition: color 0.3s ease;
-    }
-    
-    .msme-header .header-nav ul li a:hover {
-      color: #f26522;
-    }
-    
-    .msme-header .header-login-btn {
-      border: 2px solid white;
-      padding: 5px 15px;
-      border-radius: 25px;
-      background: transparent;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      display: inline-block;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    
-    .msme-header .header-login-btn:hover {
-      background: white;
-      color: #f26522;
-    }
-    
-    /* Mobile Menu Toggle */
-    .msme-header .mobile-menu-toggle {
-      display: none;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    
-    /* Mobile Responsive */
-    @media screen and (max-width: 768px) {
-      .msme-header {
-        padding: 10px 15px;
-      }
-      
-      .msme-header .header-nav ul {
-        position: fixed;
-        top: 60px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 60px);
-        background: rgba(11, 11, 59, 0.95);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 30px;
-        padding-top: 50px;
-        transition: left 0.3s ease;
-      }
-      
-      .msme-header .header-nav ul.active {
-        left: 0;
-      }
-      
-      .msme-header .mobile-menu-toggle {
-        display: block;
-      }
-      
-      .msme-header .header-nav ul li {
-        font-size: 18px;
-      }
-    }
-    
-
-    .msme-header .header-nav ul li ul {
-  display: none;
-  position: absolute;
-  background: rgba(11,11,59,0.95);
-  padding: 10px 0;
-  border-radius: 6px;
+  /* Header Specific CSS */
+.msme-header * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.msme-header .header-nav ul li:hover ul {
-  display: block;
+.msme-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  background: rgba(11, 11, 59, 0.6);
+  padding: 10px 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.msme-header .header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .msme-header .header-logo {
@@ -136,12 +32,135 @@
   color: #ff6600;
   font-weight: bold;
   text-decoration: none;
-  gap: 10px; /* space between logo and text */
+  gap: 10px;
 }
 
 .msme-header .header-logo img {
-  height: 50px;  /* adjust size as needed */
+  height: 50px;
   width: auto;
+}
+
+.msme-header .header-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.msme-header .header-nav ul li {
+  font-size: 16px;
+  position: relative;
+}
+
+.msme-header .header-nav ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.msme-header .header-nav ul li a:hover {
+  color: #f26522;
+}
+
+.msme-header .header-login-btn {
+  border: 2px solid white;
+  padding: 5px 15px;
+  border-radius: 25px;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.msme-header .header-login-btn:hover {
+  background: white;
+  color: #f26522;
+}
+
+/* Mobile Menu Toggle */
+.msme-header .mobile-menu-toggle {
+  display: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Dropdown Styling */
+.msme-header .header-nav ul li ul.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -50px;
+  background: rgba(11, 11, 59, 0.95);
+  padding: 10px 0;
+  border-radius: 6px;
+  min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+.msme-header .header-nav ul li:hover ul.dropdown-menu {
+  display: block;
+}
+
+.msme-header .header-nav ul li ul.dropdown-menu li a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.msme-header .header-nav ul li ul.dropdown-menu li a:hover {
+  background: rgba(255, 102, 0, 0.8);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .msme-header {
+    padding: 10px 15px;
+  }
+
+  .msme-header .header-nav ul {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: rgba(11, 11, 59, 0.95);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    padding-top: 50px;
+    transition: left 0.3s ease;
+  }
+
+  .msme-header .header-nav ul.active {
+    left: 0;
+  }
+
+  .msme-header .mobile-menu-toggle {
+    display: block;
+  }
+
+  .msme-header .header-nav ul li {
+    font-size: 18px;
+  }
+
+  .msme-header .header-nav ul li ul.dropdown-menu {
+    position: static;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .msme-header .header-nav ul li ul.dropdown-menu li a {
+    padding-left: 30px;
+    background: rgba(11, 11, 59, 0.85);
+  }
 }
 
   </style>
@@ -152,11 +171,11 @@
   <img src="assets/logo22.png" alt="MSME Global Logo">
 
 </a>
-    
+
     <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
       <i class="fas fa-bars"></i>
     </div>
-    
+
     <ul id="headerMenu">
       <li><a href="home.php">Home</a></li>
       <li><a href="browse-directory2.php">Browse Directory</a></li>
@@ -187,9 +206,9 @@
 function toggleMobileMenu() {
   const menu = document.getElementById('headerMenu');
   const toggle = document.querySelector('.mobile-menu-toggle i');
-  
+
   menu.classList.toggle('active');
-  
+
   if (menu.classList.contains('active')) {
     toggle.classList.remove('fa-bars');
     toggle.classList.add('fa-times');
@@ -204,7 +223,7 @@ document.querySelectorAll('.msme-header .header-nav ul li a').forEach(link => {
   link.addEventListener('click', () => {
     const menu = document.getElementById('headerMenu');
     const toggle = document.querySelector('.mobile-menu-toggle i');
-    
+
     menu.classList.remove('active');
     toggle.classList.remove('fa-times');
     toggle.classList.add('fa-bars');
@@ -216,7 +235,7 @@ document.addEventListener('click', (e) => {
   const header = document.querySelector('.msme-header');
   const menu = document.getElementById('headerMenu');
   const toggle = document.querySelector('.mobile-menu-toggle i');
-  
+
   if (!header.contains(e.target) && menu.classList.contains('active')) {
     menu.classList.remove('active');
     toggle.classList.remove('fa-times');

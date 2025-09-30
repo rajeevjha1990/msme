@@ -33,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mday        = $_POST['mday'];
     $mmonth      = $_POST['mmonth'];
 
-    $update = $conn->prepare("UPDATE users SET 
-        name=?, gender=?, alternate=?, blood_group=?, day=?, month=?, mday=?, mmonth=? 
+    $update = $conn->prepare("UPDATE users SET
+        name=?, gender=?, alternate=?, blood_group=?, day=?, month=?, mday=?, mmonth=?
         WHERE email=?");
     $update->bind_param("ssssisiss", $name, $gender, $alternate, $blood_group, $day, $month, $mday, $mmonth, $user_email);
 
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="profile-card">
     <h4 class="mb-3">Member Profile</h4>
-    
+
     <?php if (isset($success)) echo "<div class='alert alert-success'>$success</div>"; ?>
     <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
 
@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </select>
         </div>
-        
+
         <?php
         // Define months array for VARCHAR storage - stores full month names
         $months = [
@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "July", "August", "September", "October", "November", "December"
         ];
         ?>
-        
+
         <!-- Birth Date and Month -->
         <div class="col-md-3">
             <label class="form-label">Birth Date</label>
@@ -156,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </select>
         </div>
-        
+
         <!-- Marriage Anniversary Date and Month -->
         <div class="col-md-3">
             <label class="form-label">Anniversary Date</label>
@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </select>
         </div>
-        
+
         <div class="col-md-6">
             <label class="form-label">Registration Date</label>
             <input type="text" class="form-control" value="<?php echo htmlspecialchars($registration_date); ?>" readonly>
@@ -198,7 +198,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </form>
 </div>
-
 <?php include 'common/footer.php'; ?>
 </body>
 </html>
