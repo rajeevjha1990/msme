@@ -8,7 +8,6 @@
 <script src="<?php echo SITE_URL; ?>admin/assets/js/sidebar.js"></script>
 <script src="<?php echo SITE_URL; ?>admin/assets/js/select2.min.js"></script>
 <script src="<?php echo SITE_URL; ?>admin/assets/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo SITE_URL; ?>admin/assets/js/xausd_livedata.js"></script>
 
 </body>
 </html>
@@ -98,100 +97,4 @@ $(document).on("blur", ".editable", function () {
         }
     });
 });
-/*Swap update function*/
-function applySwapToOpen() {
-    let value = document.getElementById("globalSwap").value;
-    if(value === ""){
-        alert("Please enter a swap value");
-        return;
-    }
-
-    let form = document.createElement("form");
-    form.method = "POST";
-    form.action = "<?php echo SITE_URL; ?>admin/index.php?action=update_swap";
-
-    let input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "swap";
-    input.value = value;
-
-    form.appendChild(input);
-    document.body.appendChild(form);
-    form.submit();
-}
-function fetchUnreadCount() {
-  $.ajax({
-    url: "<?php echo SITE_URL; ?>admin/index.php?action=getUnreadTicketCountAjax",
-    type: "POST",
-    dataType: "json",
-    success: function(response) {
-      $("#unreadCount").text(response.count);
-      $("#sidebarUnreadCount").text(response.count);
-    }
-  });
-}
-fetchUnreadCount();
-setInterval(fetchUnreadCount, 5000);
-
-function loadNotificationCount() {
-    $.ajax({
-        url: "<?php echo SITE_URL; ?>admin/index.php?action=notification_count",
-        method: "GET",
-        dataType: "json",
-        success: function(res) {
-            console.log("Notification Response:", res); // debugging
-
-            let count = res.count ?? 0;
-
-            if (count > 0) {
-                $("#notifCount").text(count).show();
-            } else {
-                $("#notifCount").hide();
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", error);
-        }
-    });
-}
-
-// First load
-$(document).ready(function(){
-    loadNotificationCount();
-    setInterval(loadNotificationCount, 10000);
-});
-function markAsRead(card){
-    var notifId = $(card).data('id'); // data-id से id लो
-    if(!notifId) return;
-
-    $.ajax({
-        url: "<?php echo SITE_URL; ?>admin/index.php?action=mark_notification_read",
-        method: "POST",
-        data: { id: notifId },
-        dataType: "json",
-        success: function(res){
-            if(res.success){
-                // Card fade out
-                $(card).fadeOut(300, function(){ $(this).remove(); });
-
-                // Notification count update
-                var countElem = $('#notifCount');
-                var count = parseInt(countElem.text()) || 0;
-                count = Math.max(count - 1, 0);
-                if(count > 0){
-                    countElem.text(count).show();
-                } else {
-                    countElem.hide();
-                }
-            } else {
-                alert('Failed to mark as read');
-            }
-        },
-        error: function(xhr, status, error){
-            console.error(error);
-            alert('AJAX error!');
-        }
-    });
-}
-
 </script>

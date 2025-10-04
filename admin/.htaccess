@@ -1,0 +1,18 @@
+# Enable rewrite engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /msme/admin/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Allow uploads directory access
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|pdf)$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
