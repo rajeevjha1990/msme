@@ -167,5 +167,30 @@ public function add_category()
           exit;
       }
   }
+public function remove_category()
+{
+  ob_clean();
+    header('Content-Type: application/json');
+    $id = $_POST['categoryid'] ?? '';
+    if (!$id) {
+        echo json_encode([
+            "success" => false,
+            "message" => "No ID provided"
+        ]);
+        return;
+    }
+    $result=$this->commonModel->remove_category($id);
+    if ($result) {
+        echo json_encode([
+            "success" => true,
+            "message" => "Category status updated (soft deleted)"
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "Failed to update category status"
+        ]);
+    }
+}
 }
 ?>

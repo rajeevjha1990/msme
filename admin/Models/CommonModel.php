@@ -52,5 +52,9 @@ public function updatecategory($id, $data)
     $sql = "UPDATE $table SET " . implode(',', $set) . " WHERE id=$id";
     return $this->db->conn->query($sql);
   }
+public function remove_category($id)
+  {
+    return $this->db->softDelete("business_categories", "id='" . intval($id) . "'");
+  }
 }
 ?>

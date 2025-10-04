@@ -47,9 +47,9 @@ switch ($action) {
     $commonController = new CommonController($conn);
     $commonController->add_category();
     break;
-    case 'test_upload':
+    case 'remove_category':
     $commonController = new CommonController($conn);
-    $commonController->test_upload();
+    $commonController->remove_category();
     break;
 
   default:

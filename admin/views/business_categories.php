@@ -37,9 +37,8 @@
             </td>
             <td>
               <a href="index.php?action=edit_category&id=<?php echo $row['id']; ?>"   class="btn btn-success btn-sm">Edit</a>
-                <button onclick="deletecategory(<?php echo $row['id']; ?>)"
-                        class="btn btn-danger btn-sm">Delete</button>
-                      </td>
+              <a href="javascript:void(0)" onclick="deletecategory(<?php echo $row['id']; ?>)" class="action-link remove-link btn btn-danger">Remove</a>
+              </td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -51,10 +50,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-function deletecategory(userid) {
+function deletecategory(categoryid) {
     Swal.fire({
         title: 'Are you sure?',
-        text: "This user will be permanently deleted!",
+        text: "This category will be permanently deleted ?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -63,17 +62,19 @@ function deletecategory(userid) {
         cancelButtonText: 'No, cancel'
     }).then((result) => {
         if (result.isConfirmed) {
+
             $.ajax({
-                url: "<?php echo SITE_URL; ?>admin/index.php?action=delete_user",
+                url: "<?php echo SITE_URL; ?>admin/index.php?action=remove_category",
                 type: "POST",
-                data: { userid: userid },
+                data: { categoryid: categoryid },
                 dataType: "json",
                 success: function(response) {
+                      console.log("AJAX Response:", response);
                     if (response.success) {
-                        $("#row-" + userid).remove();
+                        $("#row-" + categoryid).remove();
                         Swal.fire(
                             'Deleted!',
-                            'User has been removed.',
+                            'Category has been removed.',
                             'success'
                         );
                     } else {
@@ -85,6 +86,8 @@ function deletecategory(userid) {
                     }
                 },
                 error: function(xhr, status, error) {
+                      console.log("AJAX ERROR RESPONSE:", xhr.responseText); // 🔍 debug output
+
                     Swal.fire(
                         'Error!',
                         'AJAX error: ' + error,
