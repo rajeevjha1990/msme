@@ -20,29 +20,10 @@
     });
   });
 $('#myTable').DataTable({
-    "pageLength": 5,
-    "lengthMenu": [5, 10, 25, 50, 100],
-    "searching": true,
+    "pageLength": 10,
+    "lengthMenu": [10, 25, 50, 100],
     "ordering": true,
-    "columnDefs": [
-      {
-        "targets": 3, // status column
-        "render": function (data) {
-          if (data == "1") return '<span class="status-open">Open</span>';
-          if (data == "0") return '<span class="status-closed">Closed</span>';
-          if (data == "2") return '<span class="status-pending">Pending</span>';
-          return data;
-        }
-      }
-    ],
-    "rowCallback": function(row, data, index) {
-      if (data[3].includes("Open")) {
-        $(row).css("background-color", "#eaffea");
-      }
-      else if (data[3].includes("Closed")) {
-        $(row).css("background-color", "#ffecec");
-      }
-    }
+    "order": [[1, "asc"]],
 });
 $(document).ready(function() {
     $('#user').change(function() {

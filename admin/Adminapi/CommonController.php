@@ -90,7 +90,6 @@ public function add_category()
     if (!is_writable(UPLOAD_DIR)) {
         $errors[] = "Upload directory is not writable.";
     }
-
     // Handle file upload
     if (isset($_FILES['icon']) && $_FILES['icon']['error'] != UPLOAD_ERR_NO_FILE) {
         $fileTmp  = $_FILES['icon']['tmp_name'];
@@ -99,7 +98,7 @@ public function add_category()
         $fileExt  = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
         $allowedExt = ['jpg', 'jpeg', 'png', 'gif'];
-        $minSize = 50 * 1024;      // 50KB
+        $minSize = 10 * 1024;      // 10KB
         $maxSize = 2 * 1024 * 1024; // 2MB
 
         // Type validation
@@ -191,6 +190,131 @@ public function remove_category()
             "message" => "Failed to update category status"
         ]);
     }
-}
+ }
+ public function states()
+  {
+      if (!isset($_SESSION['admin_id'])) {
+          header("Location: " . SITE_URL . "admin/index.php?action=login");
+          exit;
+      }
+      $loggedAdmin = $this->getLoggedAdmin();
+      $states = $this->commonModel->get_states();
+      include __DIR__ . "/../includes/header.php";
+      include __DIR__ . "/../includes/sidebar.php";
+      include __DIR__ . '/../views/state_list.php';
+      include __DIR__ . "/../includes/footer.php";
+  }
+ public function new_state()
+  {
+      if (!isset($_SESSION['admin_id'])) {
+          header("Location: " . SITE_URL . "admin/index.php?action=login");
+          exit;
+      }
+      $loggedAdmin = $this->getLoggedAdmin();
+      include __DIR__ . "/../includes/header.php";
+      include __DIR__ . "/../includes/sidebar.php";
+      include __DIR__ . '/../views/state_form.php';
+      include __DIR__ . "/../includes/footer.php";
+  }
+ public function edit_state($stateid)
+  {
+      if (!isset($_SESSION['admin_id'])) {
+          header("Location: " . SITE_URL . "admin/index.php?action=login");
+          exit;
+      }
+      $loggedAdmin = $this->getLoggedAdmin();
+      $state = $this->commonModel->get_state($stateid);
+      include __DIR__ . "/../includes/header.php";
+      include __DIR__ . "/../includes/sidebar.php";
+      include __DIR__ . '/../views/state_form.php';
+      include __DIR__ . "/../includes/footer.php";
+  }
+public function add_state()
+{
+    $loggedAdmin = $this->getLoggedAdmin();
+    unset($_SESSION['error'], $_SESSION['success']);
+    $errors = [];
+
+    $id   = trim($_POST['stateid'] ?? '');
+    $state = trim($_POST['state'] ?? '');
+    $zoneid = trim($_POST['zoneid'] ?? '');
+    $statecode = trim($_POST['statecode'] ?? '');
+
+    // Validation
+    if (!$state) {
+        $errors[] = "State name is required.";
+    }
+    if (!$zoneid) {
+        $errors[] = "Zone id  is required.";
+    }
+    if (!$statecode) {
+        $errors[] = "State code is required.";
+    }
+    // Insert / Update state
+    if (empty($errors)) {
+        $data = [
+            'state' => $state,
+            'zoneid' => $zoneid,
+            'statecode' => $statecode,
+        ];
+        if ($id) {
+            $resp = $this->commonModel->updateState($id, $data);
+            if ($resp) {
+                $_SESSION['success'] = "State updated successfully!";
+                header("Location: index.php?action=states");
+                exit;
+            } else {
+                $_SESSION['error'] = "Update failed! Please try again.";
+                header("Location: index.php?action=edit_state&id=$id");
+                exit;
+            }
+        } else {
+            $resp = $this->commonModel->insertState($data);
+            if ($resp) {
+                $_SESSION['success'] = "State added successfully!";
+                header("Location: index.php?action=states");
+                exit;
+            } else {
+                $_SESSION['error'] = "Insert failed! Please try again.";
+                header("Location: index.php?action=states");
+                exit;
+            }
+        }
+      } else {
+          $_SESSION['error'] = implode("<br>", $errors);
+          if ($id) {
+              header("Location: index.php?action=edit_state&id=$id");
+          } else {
+              header("Location: index.php?action=states");
+          }
+          exit;
+      }
+  }
+public function remove_state()
+{
+  ob_clean();
+    header('Content-Type: application/json');
+    $id = $_POST['stateid'] ?? '';
+    if (!$id) {
+        echo json_encode([
+            "success" => false,
+            "message" => "No ID provided"
+        ]);
+        return;
+    }
+    $result=$this->commonModel->remove_state($id);
+    if ($result) {
+        echo json_encode([
+            "success" => true,
+            "message" => "State status updated (soft deleted)"
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "Failed to update state status"
+        ]);
+    }
+ }
+
 }
 ?>

@@ -7,10 +7,8 @@
         <ul class="submenu">
           <li><a href="index.php?action=bsurvey">Booster Survey</a></li>
           <li><a href="index.php?action=bcategories">Business Categories</a></li>
-          <li><a href="index.php?action=city_master">City Master</a></li>
-          <li><a href="index.php?action=cities">Cities</a></li>
-          <li><a href="index.php?action=state_master">State Master</a></li>
           <li><a href="index.php?action=states">States</a></li>
+          <li><a href="index.php?action=cities">Cities</a></li>
           <li><a href="index.php?action=industries">Industries</a></li>
         </ul>
         </li>

@@ -47,11 +47,41 @@ switch ($action) {
     $commonController = new CommonController($conn);
     $commonController->add_category();
     break;
+
     case 'remove_category':
     $commonController = new CommonController($conn);
     $commonController->remove_category();
     break;
 
+    case 'states':
+    $commonController = new CommonController($conn);
+    $commonController->states();
+    break;
+    case 'edit_state':
+      $commonController = new CommonController($conn);
+      $id = $_GET['id'] ?? null;
+      if ($id) {
+        $commonController->edit_state($id);
+      } else {
+        echo "ID missing!";
+      }
+      break;
+    case 'new_state':
+    $commonController = new CommonController($conn);
+    $commonController->new_state();
+    break;
+    case 'add_state':
+    $commonController = new CommonController($conn);
+    $commonController->add_state();
+    break;
+    case 'remove_state':
+    $commonController = new CommonController($conn);
+    $commonController->remove_state();
+    break;
+    case 'cities':
+    $commonController = new CommonController($conn);
+    $commonController->cities();
+    break;
   default:
     echo "404 - Page Not Found";
     break;

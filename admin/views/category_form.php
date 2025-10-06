@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>New Category</title>
+  <title><?= !empty($categoryid) ? "Edit Category" : "New Category" ?></title>
 </head>
 <body>
   <div class="container mt-5">
     <div class="content">
-      <h2>New Slide</h2>
+      <h2><?= !empty($categoryid) ? "Edit Category" : "New Category" ?></h2>
     <?php
     if(isset($category)){
-      $id = $category['id'];
+      $categoryid = $category['id'];
       $name = $category['name'];
       $slug = $category['slug'];
       $icon = $category['icon'];
       } else {
-          $id = "";
+          $categoryid = "";
           $name = "";
           $slug = "";
           $icon = "";
@@ -39,7 +39,7 @@
       <?php } ?>
 
       <form method="post" action="index.php?action=add_category" enctype="multipart/form-data">
-      <input value="<?php echo $id; ?>" type="hidden" name="id" id="id" class="form-control"/>
+      <input value="<?php echo $categoryid; ?>" type="hidden" name="id" id="id" class="form-control"/>
 
       <div class="row g-3">
         <div class="col-md-6">
@@ -58,7 +58,7 @@
           <?php if(!empty($icon)) { ?>
             <!-- Show old image preview -->
             <div class="mb-2">
-              <img src="<?php echo SITE_URL . 'admin/uploads/' . $icon; ?>"
+              <img src="<?php echo SITE_URL . 'admin/views/uploads/' . $icon; ?>"
                    alt="icon"
                    style="width:60px; height:60px; object-fit:contain; border:1px solid #ddd; padding:4px;">
             </div>
