@@ -66,6 +66,7 @@ switch ($action) {
         echo "ID missing!";
       }
       break;
+
     case 'new_state':
     $commonController = new CommonController($conn);
     $commonController->new_state();
@@ -82,6 +83,23 @@ switch ($action) {
     $commonController = new CommonController($conn);
     $commonController->cities();
     break;
+    case 'edit_city':
+      $commonController = new CommonController($conn);
+      $id = $_GET['id'] ?? null;
+      if ($id) {
+        $commonController->edit_city($id);
+      } else {
+        echo "ID missing!";
+      }
+      break;
+      case 'new_city':
+      $commonController = new CommonController($conn);
+      $commonController->new_city();
+      break;
+      case 'add_city':
+      $commonController = new CommonController($conn);
+      $commonController->add_city();
+      break;
   default:
     echo "404 - Page Not Found";
     break;

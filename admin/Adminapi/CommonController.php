@@ -229,6 +229,7 @@ public function remove_category()
       include __DIR__ . '/../views/state_form.php';
       include __DIR__ . "/../includes/footer.php";
   }
+
 public function add_state()
 {
     $loggedAdmin = $this->getLoggedAdmin();
@@ -315,6 +316,115 @@ public function remove_state()
         ]);
     }
  }
+ public function cities()
+  {
+      if (!isset($_SESSION['admin_id'])) {
+          header("Location: " . SITE_URL . "admin/index.php?action=login");
+          exit;
+      }
+      $loggedAdmin = $this->getLoggedAdmin();
+      $cities = $this->commonModel->get_cities();
+      include __DIR__ . "/../includes/header.php";
+      include __DIR__ . "/../includes/sidebar.php";
+      include __DIR__ . '/../views/city_list.php';
+      include __DIR__ . "/../includes/footer.php";
+  }
+public function edit_city($cityid)
+ {
+     if (!isset($_SESSION['admin_id'])) {
+         header("Location: " . SITE_URL . "admin/index.php?action=login");
+         exit;
+     }
+     $loggedAdmin = $this->getLoggedAdmin();
+     $states = $this->commonModel->get_states();
+     $city = $this->commonModel->get_city($cityid);
+     include __DIR__ . "/../includes/header.php";
+     include __DIR__ . "/../includes/sidebar.php";
+     include __DIR__ . '/../views/city_form.php';
+     include __DIR__ . "/../includes/footer.php";
+ }
+public function new_city()
+ {
+    if (!isset($_SESSION['admin_id'])) {
+         header("Location: " . SITE_URL . "admin/index.php?action=login");
+         exit;
+     }
+     $states = $this->commonModel->get_states();
+     $loggedAdmin = $this->getLoggedAdmin();
+     include __DIR__ . "/../includes/header.php";
+     include __DIR__ . "/../includes/sidebar.php";
+     include __DIR__ . '/../views/city_form.php';
+     include __DIR__ . "/../includes/footer.php";
+ }
+public function add_city()
+{
+    $loggedAdmin = $this->getLoggedAdmin();
+    unset($_SESSION['error'], $_SESSION['success']);
+    $errors = [];
 
+    // Get form data safely
+    $id          = trim($_POST['cityid'] ?? '');
+    $city        = trim($_POST['city'] ?? '');
+    $stateid     = trim($_POST['state'] ?? '');
+    $isdistrict  = trim($_POST['isdistrict'] ?? 'n');
+    $citycode    = trim($_POST['citycode'] ?? '');
+    $state = $this->commonModel->get_state($stateid);
+    // Validation
+    if (!$city) {
+        $errors[] = "City name is required.";
+    }
+    if (!$stateid) {
+        $errors[] = "State is required.";
+    }
+    if (!$citycode) {
+        $errors[] = "Pincode is required.";
+    }
+
+    // If validation passes
+    if (empty($errors)) {
+        $data = [
+            'city'        => $city,
+            'stateid'     => $stateid,
+            'state'     => $state->state,
+            'isdistrict'  => strtolower($isdistrict) === 'y' ? 'y' : 'n',
+            'pincode'     => $citycode,
+        ];
+
+        if ($id) {
+            // Update existing city
+            $resp = $this->commonModel->updateCity($id, $data);
+            if ($resp) {
+                $_SESSION['success'] = "City updated successfully!";
+                header("Location: index.php?action=cities");
+                exit;
+            } else {
+                $_SESSION['error'] = "Update failed! Please try again.";
+                header("Location: index.php?action=edit_city&id=$id");
+                exit;
+            }
+        } else {
+            // Insert new city
+            $resp = $this->commonModel->insertCity($data);
+            if ($resp) {
+                $_SESSION['success'] = "City added successfully!";
+                header("Location: index.php?action=cities");
+                exit;
+            } else {
+                $_SESSION['error'] = "Insert failed! Please try again.";
+                header("Location: index.php?action=cities");
+                exit;
+            }
+        }
+    } else {
+        // Validation errors
+        $_SESSION['error'] = implode("<br>", $errors);
+        if ($id) {
+            header("Location: index.php?action=edit_city&id=$id");
+        } else {
+            header("Location: index.php?action=cities");
+        }
+        exit;
+    }
+}
 }
 ?>
