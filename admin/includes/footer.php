@@ -12,19 +12,34 @@
 </body>
 </html>
 <script>
-  $(document).ready(function() {
+$(document).ready(function() {
     $('#user').select2({
-      placeholder: "Select a user",
-      allowClear: true,
-      width: '100%',
+        placeholder: "Select a user",
+        allowClear: true,
+        width: '100%',
     });
-  });
-$('#myTable').DataTable({
-    "pageLength": 10,
-    "lengthMenu": [10, 25, 50, 100],
-    "ordering": true,
-    "order": [[1, "asc"]],
+
+    var table = $('#myTable').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [10, 25, 50, 100],
+        "ordering": true,
+        "order": [[1, "asc"]], // Sort by 2nd column
+        "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0 // First column (ID/serial number) should not be sortable
+        }]
+    });
+
+    // Auto-generate correct numbering
+    table.on('order.dt search.dt', function () {
+        let i = 1;
+        table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function () {
+            this.data(i++);
+        });
+    }).draw();
 });
+
 $(document).ready(function() {
     $('#user').change(function() {
         var userId = $(this).val();

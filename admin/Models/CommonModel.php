@@ -81,6 +81,7 @@ public function get_state($id)
         return false;
     }
   }
+
 public function insertstate($data)
    {
       $fields = [];
@@ -106,6 +107,7 @@ public function insertstate($data)
       {
         return $this->db->softDelete("state_master", "stateid='" . intval($id) . "'");
       }
+
   /*City function */
   public function get_cities()
   {
@@ -156,6 +158,42 @@ public function insertstate($data)
         {
           return $this->db->softDelete("city_master", "cityid='" . intval($id) . "'");
         }
+  public function get_industries()
+  {
+      $sql = "SELECT * FROM industries WHERE status=1 ORDER BY id ASC";
+      $res = $this->conn->query($sql);
 
+      $data = [];
+      if ($res && $res->num_rows > 0) {
+          while ($row = $res->fetch_assoc()) {
+              $data[] = $row;
+          }
+      }
+
+      return $data;
+  }
+public function get_industry($id)
+{
+    $id = (int)$id;
+    $industry = $this->db->fetchSingle('industries', "id = $id");
+    if ($industry) {
+        return $industry;
+    } else {
+        return false;
+    }
+  }
+  public function insertIndustry($data)
+     {
+        $fields = [];
+        foreach ($data as $key => $value) {
+            $fields[] = "$key='" . $this->db->conn->real_escape_string($value) . "'";
+        }
+        $string = implode(", ", $fields);
+            return $this->db->insertSet("industries", $string);
+      }
+public function remove_industry($id)
+  {
+    return $this->db->softDelete("industries", "id='" . intval($id) . "'");
+  }
 }
 ?>

@@ -329,6 +329,7 @@ public function remove_state()
       include __DIR__ . '/../views/city_list.php';
       include __DIR__ . "/../includes/footer.php";
   }
+
 public function edit_city($cityid)
  {
      if (!isset($_SESSION['admin_id'])) {
@@ -356,6 +357,7 @@ public function new_city()
      include __DIR__ . '/../views/city_form.php';
      include __DIR__ . "/../includes/footer.php";
  }
+
 public function add_city()
 {
     $loggedAdmin = $this->getLoggedAdmin();
@@ -426,5 +428,132 @@ public function add_city()
         exit;
     }
 }
+public function industries()
+ {
+     if (!isset($_SESSION['admin_id'])) {
+         header("Location: " . SITE_URL . "admin/index.php?action=login");
+         exit;
+     }
+     $loggedAdmin = $this->getLoggedAdmin();
+     $industries = $this->commonModel->get_industries();
+     include __DIR__ . "/../includes/header.php";
+     include __DIR__ . "/../includes/sidebar.php";
+     include __DIR__ . '/../views/industry_list.php';
+     include __DIR__ . "/../includes/footer.php";
+ }
+ public function edit_industry($industryid)
+  {
+      if (!isset($_SESSION['admin_id'])) {
+          header("Location: " . SITE_URL . "admin/index.php?action=login");
+          exit;
+      }
+      $loggedAdmin = $this->getLoggedAdmin();
+      $industry = $this->commonModel->get_industry($industryid);
+      include __DIR__ . "/../includes/header.php";
+      include __DIR__ . "/../includes/sidebar.php";
+      include __DIR__ . '/../views/industry_form.php';
+      include __DIR__ . "/../includes/footer.php";
+  }
+
+ public function new_industry()
+  {
+     if (!isset($_SESSION['admin_id'])) {
+          header("Location: " . SITE_URL . "admin/index.php?action=login");
+          exit;
+      }
+      $states = $this->commonModel->get_states();
+      $loggedAdmin = $this->getLoggedAdmin();
+      include __DIR__ . "/../includes/header.php";
+      include __DIR__ . "/../includes/sidebar.php";
+      include __DIR__ . '/../views/industry_form.php';
+      include __DIR__ . "/../includes/footer.php";
+  }
+  public function add_industry()
+  {
+      $loggedAdmin = $this->getLoggedAdmin();
+      unset($_SESSION['error'], $_SESSION['success']);
+      $errors = [];
+
+      // Get form data safely
+      $id          = trim($_POST['cityid'] ?? '');
+      $code        = trim($_POST['code'] ?? '');
+      $name     = trim($_POST['name'] ?? '');
+
+      // Validation
+      if (!$code) {
+          $errors[] = "Industry code is required.";
+      }
+      if (!$name) {
+          $errors[] = "Industry name is required.";
+      }
+      // If validation passes
+      if (empty($errors)) {
+          $data = [
+              'code'=> $code,
+              'name'=> $name,
+          ];
+
+          if ($id) {
+              // Update existing city
+              $resp = $this->commonModel->updateIndustry($id, $data);
+              if ($resp) {
+                  $_SESSION['success'] = "Industry updated successfully!";
+                  header("Location: index.php?action=industries");
+                  exit;
+              } else {
+                  $_SESSION['error'] = "Update failed! Please try again.";
+                  header("Location: index.php?action=edit_industry&id=$id");
+                  exit;
+              }
+          } else {
+              // Insert new city
+              $resp = $this->commonModel->insertIndustry($data);
+              if ($resp) {
+                  $_SESSION['success'] = "Industry added successfully!";
+                  header("Location: index.php?action=industries");
+                  exit;
+              } else {
+                  $_SESSION['error'] = "Insert failed! Please try again.";
+                  header("Location: index.php?action=industries");
+                  exit;
+              }
+          }
+      } else {
+          // Validation errors
+          $_SESSION['error'] = implode("<br>", $errors);
+          if ($id) {
+              header("Location: index.php?action=edit_industry&id=$id");
+          } else {
+              header("Location: index.php?action=industries");
+          }
+          exit;
+      }
+  }
+public function remove_industry()
+{
+  ob_clean();
+    header('Content-Type: application/json');
+    $id = $_POST['industryid'] ?? '';
+    if (!$id) {
+        echo json_encode([
+            "success" => false,
+            "message" => "No ID provided"
+        ]);
+        return;
+    }
+    $result=$this->commonModel->remove_industry($id);
+    if ($result) {
+        echo json_encode([
+            "success" => true,
+            "message" => "Industry status updated (soft deleted)"
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "Failed to update industry status"
+        ]);
+    }
+ }
+
 }
 ?>

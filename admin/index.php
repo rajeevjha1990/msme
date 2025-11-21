@@ -79,6 +79,7 @@ switch ($action) {
     $commonController = new CommonController($conn);
     $commonController->remove_state();
     break;
+
     case 'cities':
     $commonController = new CommonController($conn);
     $commonController->cities();
@@ -99,6 +100,36 @@ switch ($action) {
       case 'add_city':
       $commonController = new CommonController($conn);
       $commonController->add_city();
+      break;
+
+      case 'industries':
+      $commonController = new CommonController($conn);
+      $commonController->industries();
+      break;
+      case 'edit_industry':
+      $commonController = new CommonController($conn);
+      $id = $_GET['id'] ?? null;
+      if ($id) {
+        $commonController->edit_industry($id);
+      } else {
+        echo "ID missing!";
+      }
+      break;
+      case 'new_industry':
+      $commonController = new CommonController($conn);
+      $commonController->new_industry();
+      break;
+      case 'booster_surveys':
+      $commonController = new CommonController($conn);
+      $commonController->surveys();
+      break;
+      case 'add_industry':
+      $commonController = new CommonController($conn);
+      $commonController->add_industry();
+      break;
+      case 'remove_industry':
+      $commonController = new CommonController($conn);
+      $commonController->remove_industry();
       break;
   default:
     echo "404 - Page Not Found";
