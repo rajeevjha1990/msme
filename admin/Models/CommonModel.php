@@ -123,6 +123,7 @@ public function insertstate($data)
 
       return $data;
   }
+
   public function get_city($id)
   {
       $id = (int)$id;
@@ -195,5 +196,30 @@ public function remove_industry($id)
   {
     return $this->db->softDelete("industries", "id='" . intval($id) . "'");
   }
+  public function get_allusers()
+  {
+      $sql = "SELECT * FROM users ORDER BY user_id DESC";
+      $res = $this->conn->query($sql);
+
+      $data = [];
+      if ($res && $res->num_rows > 0) {
+          while ($row = $res->fetch_assoc()) {
+              $data[] = $row;
+          }
+      }
+
+      return $data;
+  }
+  public function get_user($id)
+  {
+      $id = (int)$id;
+      $user = $this->db->fetchSingle('users', "user_id = $id");
+      if ($user) {
+          return $user;
+      } else {
+          return false;
+      }
+    }
+
 }
 ?>

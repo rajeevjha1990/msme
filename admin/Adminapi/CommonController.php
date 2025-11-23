@@ -554,6 +554,32 @@ public function remove_industry()
         ]);
     }
  }
+public function allusers()
+ {
+     if (!isset($_SESSION['admin_id'])) {
+         header("Location: " . SITE_URL . "admin/index.php?action=login");
+         exit;
+     }
+     $loggedAdmin = $this->getLoggedAdmin();
+     $allusers = $this->commonModel->get_allusers();
+     include __DIR__ . "/../includes/header.php";
+     include __DIR__ . "/../includes/sidebar.php";
+     include __DIR__ . '/../views/user_list.php';
+     include __DIR__ . "/../includes/footer.php";
+ }
+public function user_details($userId)
+ {
+     if (!isset($_SESSION['admin_id'])) {
+         header("Location: " . SITE_URL . "admin/index.php?action=login");
+         exit;
+     }
+     $loggedAdmin = $this->getLoggedAdmin();
+     $user = $this->commonModel->get_user($userId);
+     include __DIR__ . "/../includes/header.php";
+     include __DIR__ . "/../includes/sidebar.php";
+     include __DIR__ . '/../views/user_details.php';
+     include __DIR__ . "/../includes/footer.php";
+ }
 
 }
 ?>

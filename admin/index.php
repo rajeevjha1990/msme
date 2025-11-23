@@ -131,6 +131,19 @@ switch ($action) {
       $commonController = new CommonController($conn);
       $commonController->remove_industry();
       break;
+      case 'allusers':
+      $commonController = new CommonController($conn);
+      $commonController->allusers();
+      break;
+        case 'user_details':
+        $commonController = new CommonController($conn);
+        $id = $_GET['id'] ?? null;
+        if ($id) {
+          $commonController->user_details($id);
+        } else {
+          echo "ID missing!";
+        }
+        break;
   default:
     echo "404 - Page Not Found";
     break;

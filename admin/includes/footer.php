@@ -8,6 +8,7 @@
 <script src="<?php echo SITE_URL; ?>admin/assets/js/sidebar.js"></script>
 <script src="<?php echo SITE_URL; ?>admin/assets/js/select2.min.js"></script>
 <script src="<?php echo SITE_URL; ?>admin/assets/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </body>
 </html>
