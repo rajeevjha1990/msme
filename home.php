@@ -22,13 +22,21 @@ $influencer_query = "
     WHERE u.referenceid IS NOT NULL
     GROUP BY u.referenceid, u.name,  u.category, u.photo
     HAVING reference_count > 0
-    ORDER BY reference_count DESC
-
-";
+    ORDER BY reference_count DESC";
 
 $influencer_result = mysqli_query($conn, $influencer_query);
 
+$category_query = "SELECT * FROM business_categories WHERE status = 1";
+$category_result = mysqli_query($conn, $category_query);
 
+$categories = [];
+
+if ($category_result) {
+    while ($row = mysqli_fetch_assoc($category_result)) {
+        $row['name'] = ucwords(strtolower($row['name']));
+        $categories[] = $row;
+    }
+}
 
 
 ?>
@@ -78,46 +86,13 @@ $influencer_result = mysqli_query($conn, $influencer_query);
 <!-- Categories -->
   <h2 style="text-align: center;">Browse Businesses By Categories</h2>
   <div class="category-grid">
+    <?php
+    foreach ($categories as $cate) { ?>
     <a href="browse-directory2.php?category=Banking%20Services" class="category-card">
-      <img src="assets/icons/p1.jpg">
-      <p>Banking Services</p>
+      <img src="<?php echo SITE_URL . 'admin/views/uploads/' . $row['icon']; ?>">
+      <p><?php echo $cate['name']; ?></p>
     </a>
-    <a href="browse-directory2.php?category=Textiles+%26+Fabric+Reseller&letter=" class="category-card">
-      <img src="assets/icons/p2.jpg">
-      <p>Textiles & Fabric Reseller</p>
-    </a>
-    <a href="browse-directory2.php?category=Corporate%20Gifting" class="category-card">
-      <img src="assets/icons/p3.jpg">
-      <p>Corporate Gifting</p>
-    </a>
-    <a href="browse-directory2.php?category=General%20Insurance" class="category-card">
-      <img src="assets/icons/p4.jpg">
-      <p>General Insurance</p>
-    </a>
-    <a href="browse-directory2.php?category=Graphic+Designing&letter=" class="category-card">
-      <img src="assets/icons/p5.jpg">
-      <p>Graphic Designing</p>
-    </a>
-    <a href="browse-directory2.php?category=Life%20Insurance" class="category-card">
-      <img src="assets/icons/p6.jpg">
-      <p>Life Insurance</p>
-    </a>
-    <a href="browse-directory2.php?category=Yoga%2FPilates%2FQi-gong+Trainer&letter=" class="category-card">
-      <img src="assets/icons/p7.jpg">
-      <p>Fitness Trainer</p>
-    </a>
-    <a href="browse-directory2.php?category=Real+Estate+Consultant&letter=" class="category-card">
-      <img src="assets/icons/p8.jpg">
-      <p>Real Estate</p>
-    </a>
-    <a href="browse-directory2.php?category=Wedding+Planner&letter=" class="category-card">
-      <img src="assets/icons/p9.jpg">
-      <p>Event Manager</p>
-    </a>
-    <a href="browse-directory2.php?category=Stock%20Broker" class="category-card">
-      <img src="assets/icons/p10.jpg">
-      <p>Stock Broker</p>
-    </a>
+      <?php } ?>
   </div>
 </section>
 
@@ -125,8 +100,6 @@ $influencer_result = mysqli_query($conn, $influencer_query);
   <!-- Advertisement -->
 <section>
   <div class="advertisement-banner">
-
-
     <!-- Banner Slider -->
     <div class="banner-slider">
       <?php
