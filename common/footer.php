@@ -405,7 +405,73 @@ document.querySelector('.footer-register-btn').addEventListener('click', functio
     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
   }
 });
-</script>
 
+// Add smooth scrolling and enhanced interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Add loading animation for images
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('load', function() {
+            this.style.opacity = '1';
+        });
+    });
+
+    // Add click feedback for social links
+    const socialLinks = document.querySelectorAll('.social-link');
+    socialLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1.1)';
+            }, 100);
+        });
+    });
+});
+
+
+// Function to initialize sliders
+function initSlider(sliderId) {
+    const slider = document.getElementById(sliderId);
+    if (!slider) return;
+
+    const container = slider.closest('.slider-container');
+    const leftBtn = container.querySelector('.slider-btn.left');
+    const rightBtn = container.querySelector('.slider-btn.right');
+
+    leftBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: -220, behavior: "smooth" });
+    });
+
+    rightBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: 220, behavior: "smooth" });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    initSlider("profileSlider"); // similar profiles
+    initSlider("gallerySlider"); // gallery
+});
+// Gallery Zoom Feature
+document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightboxOverlay');
+    const lightboxImg = lightbox.querySelector('img');
+
+    // Open lightbox on image click
+    const galleryImages = document.querySelectorAll('.slider-wrapper .profile-card img');
+    galleryImages.forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function() {
+            lightbox.style.display = 'flex';
+            lightboxImg.src = this.src;
+        });
+    });
+
+    // Close lightbox on click
+    lightbox.addEventListener('click', function() {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+    });
+});
+</script>
 </body>
 </html>

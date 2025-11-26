@@ -1,4 +1,4 @@
-<?php  
+<?php
 session_start();
 include 'dbconfigf/dbconst2025.php';
 include 'common/header.php';
@@ -37,30 +37,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if survey already exists for this user
     if ($survey) {
         // Update existing record
-        $update = $conn->prepare("UPDATE booster_survey SET 
-            attend_meets=?, whatsapp_groups=?, sponsor_events=?, display_expo=?, 
-            mentorship=?, blog_write=?, communication_mode=?, collaborate=?, 
-            best_time_online=?, receive_referrals=?, featured_website=?, 
-            paid_promotions=?, training_interest=?, vip_invites=? 
+        $update = $conn->prepare("UPDATE booster_survey SET
+            attend_meets=?, whatsapp_groups=?, sponsor_events=?, display_expo=?,
+            mentorship=?, blog_write=?, communication_mode=?, collaborate=?,
+            best_time_online=?, receive_referrals=?, featured_website=?,
+            paid_promotions=?, training_interest=?, vip_invites=?
             WHERE user_email=?");
-        $update->bind_param("sssssssssssssss", 
-            $attend_meets, $whatsapp_groups, $sponsor_events, $display_expo, 
-            $mentorship, $blog_write, $communication_mode, $collaborate, 
-            $best_time_online, $receive_referrals, $featured_website, 
+        $update->bind_param("sssssssssssssss",
+            $attend_meets, $whatsapp_groups, $sponsor_events, $display_expo,
+            $mentorship, $blog_write, $communication_mode, $collaborate,
+            $best_time_online, $receive_referrals, $featured_website,
             $paid_promotions, $training_interest, $vip_invites, $user_email
         );
         $stmt_to_execute = $update;
     } else {
         // Insert new record
-        $insert = $conn->prepare("INSERT INTO booster_survey 
-            (user_email, attend_meets, whatsapp_groups, sponsor_events, display_expo, 
-            mentorship, blog_write, communication_mode, collaborate, best_time_online, 
-            receive_referrals, featured_website, paid_promotions, training_interest, vip_invites) 
+        $insert = $conn->prepare("INSERT INTO booster_survey
+            (user_email, attend_meets, whatsapp_groups, sponsor_events, display_expo,
+            mentorship, blog_write, communication_mode, collaborate, best_time_online,
+            receive_referrals, featured_website, paid_promotions, training_interest, vip_invites)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert->bind_param("sssssssssssssss", 
-            $user_email, $attend_meets, $whatsapp_groups, $sponsor_events, $display_expo, 
-            $mentorship, $blog_write, $communication_mode, $collaborate, 
-            $best_time_online, $receive_referrals, $featured_website, 
+        $insert->bind_param("sssssssssssssss",
+            $user_email, $attend_meets, $whatsapp_groups, $sponsor_events, $display_expo,
+            $mentorship, $blog_write, $communication_mode, $collaborate,
+            $best_time_online, $receive_referrals, $featured_website,
             $paid_promotions, $training_interest, $vip_invites
         );
         $stmt_to_execute = $insert;
@@ -83,16 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <title>Booster Survey</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background: #f5f5f5; padding-top: 70px; }
-    .navbar { background: #0a1229; }
-    .navbar-brand, .nav-link { color: white !important; }
-    .profile-card { max-width: 950px; margin: 30px auto; background: #fff; border-radius: 12px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); padding: 25px; }
-    .footer { background: #0a1229; color: white; text-align: center; padding: 15px; margin-top: 40px; }
-    .btn-primary { background: #0a1229; border: none; }
-    .btn-primary:hover { background: #1b2360; }
-    input[readonly], input[disabled] { background-color: #e9ecef !important; color: #6c757d; }
-  </style>
+    <link rel="stylesheet" href="assets/css/booster-survey.css">
 </head>
 <body>
 

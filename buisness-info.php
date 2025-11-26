@@ -52,10 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $turnover      = trim($_POST['turnover']);
 
     // Prepare update statement
-    $update = $conn->prepare("UPDATE users SET 
-        entity_status=?, entity_name=?, nature=?, website=?, industry=?, category=?, 
-        address=?, state=?, city=?, pincode=?, products=?, description=?, gives=?, asks=?, 
-        team_size=?, branches=?, years_business=?, turnover=? 
+    $update = $conn->prepare("UPDATE users SET
+        entity_status=?, entity_name=?, nature=?, website=?, industry=?, category=?,
+        address=?, state=?, city=?, pincode=?, products=?, description=?, gives=?, asks=?,
+        team_size=?, branches=?, years_business=?, turnover=?
         WHERE email=?"
     );
 
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Bind parameters
     if (!$update->bind_param(
-        "sssssssssssssssssss", 
+        "sssssssssssssssssss",
         $entity_status, $entity_name, $nature, $website, $industry, $category,
         $address, $state, $city, $pincode, $products, $description, $gives, $asks,
         $team_size, $branches, $years, $turnover, $user_email
@@ -93,16 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <title>Business Information</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background: #f5f5f5; padding-top: 70px; }
-    .navbar { background: #0a1229; }
-    .navbar-brand, .nav-link { color: white !important; }
-    .profile-card { max-width: 950px; margin: 30px auto; background: #fff; border-radius: 12px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); padding: 25px; }
-    .footer { background: #0a1229; color: white; text-align: center; padding: 15px; margin-top: 40px; }
-    .btn-primary { background: #0a1229; border: none; }
-    .btn-primary:hover { background: #1b2360; }
-    input[readonly], input[disabled] { background-color: #e9ecef !important; color: #6c757d; }
-  </style>
+    <link rel="stylesheet" href="assets/css/business.css">
 </head>
 <body>
 
@@ -136,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <select class="form-select" name="nature" required>
     <option value="">Please select</option>
     <?php foreach($natureOptions as $option): ?>
-      <option value="<?= htmlspecialchars($option) ?>" 
+      <option value="<?= htmlspecialchars($option) ?>"
         <?= ($user['nature'] ?? '') == $option ? 'selected' : '' ?>>
         <?= htmlspecialchars($option) ?>
       </option>
@@ -144,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </select>
 </div>
 
-    
+
 
     <div class="col-md-6">
       <label class="form-label">Industry Classification*</label>

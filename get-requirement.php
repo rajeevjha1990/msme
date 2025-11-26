@@ -62,7 +62,7 @@ if (!$user) {
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
     $stmt->close();
-    
+
     // Add photo as null for non-business users
     if ($user) {
         $user['photo'] = null;
@@ -91,88 +91,18 @@ $deadline_date = !empty($req['deadline']) ? date("d M Y", strtotime($req['deadli
 $budget_range = $req['min_budget'] . ' - ' . $req['max_budget'];
 ?>
 
-<style>
-.req-detail-card {
-    border: none;
-    box-shadow: none;
-}
-.req-header {
-    background: linear-gradient(135deg, #6a1b9a, #8e24aa);
-    color: white;
-    padding: 20px;
-    border-radius: 8px 8px 0 0;
-    margin: -15px -15px 20px -15px;
-}
-.user-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-.user-photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-    border: 3px solid rgba(255,255,255,0.3);
-}
-.user-details h5 {
-    margin: 0;
-    font-size: 1.1em;
-}
-.user-details small {
-    opacity: 0.9;
-}
-.req-title {
-    font-size: 1.3em;
-    font-weight: 600;
-    margin: 10px 0 5px 0;
-}
-.req-meta {
-    display: flex;
-    gap: 20px;
-    margin-top: 10px;
-}
-.meta-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9em;
-}
-.detail-section {
-    margin-bottom: 20px;
-}
-.detail-label {
-    font-weight: 600;
-    color: #6a1b9a;
-    margin-bottom: 5px;
-}
-.detail-value {
-    color: #555;
-    line-height: 1.5;
-}
-.status-badge {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: 600;
-    display: inline-block;
-}
-.status-active { background: #e8f5e8; color: #2e7d32; }
-.status-pending { background: #fff3e0; color: #f57c00; }
-.status-closed { background: #ffebee; color: #c62828; }
-.priority-high { color: #d32f2f; font-weight: 600; }
-.priority-medium { color: #f57c00; font-weight: 600; }
-.priority-low { color: #388e3c; font-weight: 600; }
-</style>
+<!-- <style>
+requirment css call
+</style> -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
 <div class="req-detail-card">
     <div class="req-header">
         <div class="user-info">
             <?php if ($user['user_type'] === 'Business' && !empty($user['photo'])): ?>
-                <img src="<?php echo htmlspecialchars($photo_path); ?>" 
-                     alt="User Photo" 
-                     class="user-photo" 
+                <img src="<?php echo htmlspecialchars($photo_path); ?>"
+                     alt="User Photo"
+                     class="user-photo"
                      onerror="this.src='images/default-user.png'">
             <?php else: ?>
                 <!-- Non-business users or business users without photos get letter avatar -->
@@ -188,9 +118,9 @@ $budget_range = $req['min_budget'] . ' - ' . $req['max_budget'];
                 <?php endif; ?>
             </div>
         </div>
-        
+
         <div class="req-title"><?php echo htmlspecialchars($req['requirement_type']); ?></div>
-        
+
         <div class="req-meta">
             <div class="meta-item">
                 <span>📅</span> <?php echo $created_date; ?>
@@ -199,9 +129,9 @@ $budget_range = $req['min_budget'] . ' - ' . $req['max_budget'];
                 <span>⏰</span> Deadline: <?php echo $deadline_date; ?>
             </div>
             <div class="meta-item">
-                <span class="status-badge <?php 
-                    if ($req['status'] == 'Active') echo 'status-active'; 
-                    elseif ($req['status'] == 'Pending') echo 'status-pending'; 
+                <span class="status-badge <?php
+                    if ($req['status'] == 'Active') echo 'status-active';
+                    elseif ($req['status'] == 'Pending') echo 'status-pending';
                     else echo 'status-closed'; ?>">
                     <?php echo htmlspecialchars($req['status']); ?>
                 </span>
@@ -218,7 +148,7 @@ $budget_range = $req['min_budget'] . ' - ' . $req['max_budget'];
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-6">
             <div class="detail-section">
                 <div class="detail-label">Quantity Required</div>
